@@ -120,7 +120,7 @@
       purposes that include (but are not necessarily limited to) connectivity
       provisioning services, storage facilities, Content Delivery Networks
       footprint, etc. The protocol can be extended with new Information
-      Elements. </t>
+      Elements.</t>
     </abstract>
   </front>
 
@@ -139,8 +139,9 @@
       purposes than connectivity provisioning. For example, CPNP can be used
       to request extra storage resources, to extend the footprint of a CDN
       (Content Delivery Networks), to enable additional features from a cloud
-      Provider, etc. CPNP can be extended with new Information Elements
-      (IEs).</t>
+      Provider, etc. CPNP can be extended with new Information Elements (IEs).
+      Sample negotiation uses cases are described in <xref
+      target="suc"></xref>.</t>
 
       <t><xref target="RFC7297"></xref> describes a Connectivity Provisioning
       Profile (CPP) template to capture connectivity requirements to be met by
@@ -157,7 +158,7 @@
       be used to activate adequate network features that are required to
       deliver the agreed service. How the outcome of CPNP negotiation is
       translated into service and network provisioning actions is out of scope
-      of this document. </t>
+      of this document.</t>
 
       <t>As a reminder, several proposals have been made in the past by the
       (research) community (e.g., COPS-SLS, Service Negotiation Protocol
@@ -339,7 +340,7 @@
           of customers having similar requirements (i.e., these customers
           share the same Customer Provisioning Profile). This mode can be
           implemented using existing tools such as <xref
-          target="RFC8309"></xref>. </t>
+          target="RFC8309"></xref>.</t>
 
           <t hangText="Negotiation-based model:"><vspace
           blankLines="1" />Unlike the frozen model, the Customer documents
@@ -351,7 +352,7 @@
           provisioned given the amount of available resources, but an 80 Mbps
           connection can be provided). A negotiation between the Customer and
           the Provider(s) then follows to the end of reaching an agreement (or
-          not). </t>
+          not).</t>
         </list></t>
 
       <t>Both frozen and negotiation-based models require the existence of
@@ -532,12 +533,13 @@
     <section anchor="cnm" title="CPNP Negotiation Model">
       <t>CPNP runs between a Customer and a Provider carrying service orders
       from the Customer and respective responses from the Provider to the end
-      of reaching a connectivity service provisioning agreement. As the
-      services offered by the Provider are well-described, by means of the CPP
-      template, the negotiation process is essentially a value-settlement
-      process, where an agreement is pursued on the values of the commonly
-      understood information items (service parameters) included in the
-      service description template.</t>
+      of reaching a service provisioning agreement. As the services offered by
+      the Provider are well-described, by means of the CPP template for
+      connectivity matters, the negotiation process is essentially a
+      value-settlement process, where an agreement is pursued on the values of
+      the commonly understood information items (service parameters) included
+      in the service description template (<xref
+      target="service_template"></xref>).</t>
 
       <t>The protocol is transparent to the content that it carries and to the
       negotiation logic, at Customer and Provider sides, that manipulates the
@@ -557,7 +559,8 @@
       negotiations, each on its own grounds.</t>
 
       <t>Based on the above, CPNP adopts a Quotation Order/Offer/Answer model,
-      which proceeds through the following basic steps:</t>
+      which proceeds through the following basic steps (<xref
+      target="service_variants"></xref>):</t>
 
       <t><list style="numbers">
           <t>The client specifies its service requirements via a Provision
@@ -573,6 +576,17 @@
           <t>The client either accepts or declines the offer. Accepting the
           offer implies a call for agreement.</t>
         </list></t>
+
+      <t><figure align="center" anchor="service_variants"
+          title="Simplified Service Negotiation">
+          <artwork align="center"><![CDATA[+------+                     +------+ 
+|Client|                     |Server| 
++------+                     +------+ 
+   |=====Requested Service=====>|  
+   |<=====Offered Service=======|  
+   |======Agreed Service=======>| 
+]]></artwork>
+        </figure></t>
 
       <t>Multiple instances of CPNP may run at Customer or Provider domains. A
       CPNP client may be engaged simultaneously in multiple negotiations with
@@ -680,7 +694,7 @@
             <t>Check whether a customer is entitled to initiate a provisioning
             quotation request.</t>
 
-            <t>Check whether a customer is entitled to cancel an on-going
+            <t>Check whether a customer is entitled to cancel an ongoing
             order.</t>
 
             <t>Check whether administrative data (e.g., billing-related
@@ -802,7 +816,7 @@
         <t>In the context of a transaction, the client needs to randomly
         select a sequence number and assign it in the first CPNP message to
         send. This number is then incremented for each request message is
-        subsequently sent within the on-going CPNP transaction (see <xref
+        subsequently sent within the ongoing CPNP transaction (see <xref
         target="sq_nu"></xref>).</t>
       </section>
 
@@ -860,7 +874,7 @@
 
             <t>DECLINE (<xref target="dec"></xref>): <vspace
             blankLines="1" />This operation is used by the client to reject an
-            offer made by the server. The on-going transaction may not be
+            offer made by the server. The ongoing transaction may not be
             terminated immediately, e.g., the server/client may issue another
             offer/order.</t>
 
@@ -872,7 +886,7 @@
 
             <t>CANCEL (<xref target="cancel"></xref>): <vspace
             blankLines="1" />This operation is used by the client to cancel
-            (quit) the on-going transaction.</t>
+            (quit) the ongoing transaction.</t>
 
             <t>WITHDRAW (<xref target="with"></xref>): <vspace
             blankLines="1" />This operation is used by the client to withdraw
@@ -889,7 +903,7 @@
             conveyed in the QUOTATION message or to inform the client about an
             error encountered when processing the received message. In either
             case, the message implies that the server is unable to make offers
-            and as such it terminates the on-going transaction. <vspace
+            and as such it terminates the ongoing transaction. <vspace
             blankLines="1" />This message is also used by the client to reject
             a time extension request received from the server (in a PROCESSING
             message). The message includes a status code for providing
@@ -910,8 +924,8 @@
 
       <section anchor="cpd" title="Connectivity Provisioning Documents">
         <t>CPNP makes use of several flavors of Connectivity Provisioning
-        Documents (CPD). These documents follow the CPP template described in
-        <xref target="RFC7297"></xref>.<list style="hanging">
+        Documents (CPD). These documents follow the same CPP template
+        described in <xref target="RFC7297"></xref>.<list style="hanging">
             <t
             hangText="Requested Connectivity Provisioning Document (Requested CPD): ">Refers
             to the CPD included by a CPNP client in a QUOTATION request.</t>
@@ -1019,7 +1033,7 @@
 
       <section title="State Management">
         <t>Both the client and the server maintain repositories to store
-        on-going orders. How these repositories are maintained is
+        ongoing orders. How these repositories are maintained is
         deployment-specific. It is out of scope of this document to elaborate
         on such considerations. Timestamps are also logged to track state
         change. Tracking may be needed for various reasons, including
@@ -1239,7 +1253,7 @@
           <t>Note 1: The formats of CPNP messages are provided using a generic
           format. Implementors can adapt RBNF definitions to their "favorite"
           message format. For example, JSON <xref target="RFC8259"></xref> or
-          CBOR <xref target="RFC7049"></xref> can be used. </t>
+          CBOR <xref target="RFC7049"></xref> can be used.</t>
 
           <t>Note 2: CPNP messages cannot be blindly mapped to RESTCONF
           messages with the target service being modelled as configuration
@@ -1249,7 +1263,7 @@
           target="offer"></xref>) or remove offers from its own initiative
           (e.g., <xref target="valtime"></xref>). An alternate approach might
           be to map CPNP operations into RESTCONF actions (rpc). Assessing the
-          feasibility of such approach is out of scope. </t>
+          feasibility of such approach is out of scope.</t>
         </list></t>
 
       <t><?rfc subcompact="yes" ?></t>
@@ -1357,13 +1371,22 @@
           target="RFC1123"></xref>.</t>
         </section>
 
-        <section title="CONNECTIVITY_PROVISIONING_DOCUMENT">
-          <t>The RBNF format of the Connectivity Provisioning Document (CPD)
-          is shown in <xref target="rbnf_cpd"></xref>:</t>
+        <section anchor="service_template" title="SERVICE_DESCRIPTION">
+          <t>This document specifies a machinery to negotiate any aspect
+          subject to negotiation. Service clauses that are under negotiation
+          are conveyed using this attribute. </t>
 
-          <t><figure anchor="rbnf_cpd"
-              title="The RBNF format of the Connectivity Provisioning Document (CPD)">
-              <artwork><![CDATA[<CONNECTIVITY_PROVISIONING_DOCUMENT> ::= 
+          <t>The structure of the connectivity provisioning clauses is
+          provided in the following sub-section. </t>
+
+          <section anchor="cpd_template"
+                   title="CONNECTIVITY_PROVISIONING_DOCUMENT">
+            <t>The RBNF format of the Connectivity Provisioning Document (CPD)
+            is shown in <xref target="rbnf_cpd"></xref>:</t>
+
+            <t><figure anchor="rbnf_cpd"
+                title="The RBNF format of the Connectivity Provisioning Document (CPD)">
+                <artwork><![CDATA[<CONNECTIVITY_PROVISIONING_DOCUMENT> ::= 
                            <Connectivity Provisioning Component> ...
 <Connectivity Provisioning Component> ::= 
                            <CONNECTIVITY_PROVISIONING_PROFILE> ...
@@ -1385,7 +1408,8 @@
 <Customer Node> ::=  <IDENTIFIER>
                      <LINK_IDENTIFIER>
                      <LOCALISATION>]]></artwork>
-            </figure></t>
+              </figure></t>
+          </section>
         </section>
 
         <section title="CPNP Information Elements">
@@ -1419,7 +1443,7 @@
               </list>The format of this Information Element is as follows:</t>
 
             <t><figure>
-                <artwork><![CDATA[<Provider Description> ::= [<NAME>] [<Contact Information>] [<AS_NUMBER>]
+                <artwork><![CDATA[<Provider Description> ::= [<NAME>][<Contact Information>][<AS_NUMBER>]
 ]]></artwork>
               </figure></t>
           </section>
@@ -1498,8 +1522,9 @@
 
           <t>The message MAY include an EXPECTED_RESPONSE_TIME which indicates
           by when the client is expecting to receive an offer from the server.
-          QUOTATION message MUST also include a requested connectivity
-          provisioning document.</t>
+          QUOTATION message MUST also include a requested service description
+          (that is, requested connectivity provisioning document for
+          connectivity services).</t>
 
           <t>When the client sends the QUOTATION message to the server, the
           state of the order changes to "PQOSent".</t>
@@ -1722,8 +1747,9 @@
 
           <t>This message is sent by the server as a response to an ACCEPT,
           WITHDRAW, DECLINE, or CANCEL message. In such case, the ACK message
-          MUST include the copy of the Connectivity Provisioning Document as
-          stored by the server, in particular:<?rfc subcompact="yes"?><list
+          MUST include the copy of the service description document as stored
+          by the server. In particular, the following considerations are taken
+          into account for connectivity provisioning services:<?rfc subcompact="yes"?><list
               style="symbols">
               <t>A copy of the requested/offered CPD is included by the server
               if it successfully handled a CANCEL message.</t>
@@ -1850,12 +1876,13 @@
             </list></t>
 
           <t><?rfc subcompact="no" ?>This message is sent by the CPNP client
-          to update an existing connectivity provisioning agreement. The CPNP
-          MUST include the same CUSTOMER_AGREEMENT_IDENTIFIER,
-          PROVIDER_AGREEMENT_IDENTIFIER, and NONCE as those used when creating
-          the order. The CPNP client includes a new CPD which integrates the
-          requested modifications. A new Transaction_ID MUST be assigned by
-          the client.</t>
+          to update an existing service agreement (e.g., connectivity
+          provisioning agreement). The CPNP MUST include the same
+          CUSTOMER_AGREEMENT_IDENTIFIER, PROVIDER_AGREEMENT_IDENTIFIER, and
+          NONCE as those used when creating the order. The CPNP client
+          includes a new service description (e.g., updated CPD) which
+          integrates the requested modifications. A new Transaction_ID MUST be
+          assigned by the client.</t>
 
           <t>Upon receipt of an UPDATE message, the server checks whether an
           order, having state "Completed", matches
@@ -2426,7 +2453,9 @@
     </section>
 
     <section title="Acknowledgements">
-      <t>Thanks to Diego R. Lopez and A. Farrel for the comments.</t>
+      <t>Thanks to Diego R. Lopez and Adrian Farrel for the comments.</t>
+
+      <t>Thanks to the ISE reviewers. </t>
     </section>
   </middle>
 
@@ -2496,8 +2525,6 @@
       <?rfc include='reference.RFC.7491'?>
 
       <?rfc include='reference.RFC.8040'?>
-
-      <?rfc include='reference.RFC.7252'?>
 
       <?rfc include='reference.RFC.8597'?>
 
